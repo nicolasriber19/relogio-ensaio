@@ -330,6 +330,11 @@ figcaption {
     border-right: 1px solid var(--cor-borda);
   }
 
+  /* Na coluna estreita, 8vw passa da faixa entre 1024 e ~1165 px; aqui o título acompanha a coluna */
+  .hero h1 {
+    font-size: var(--texto-display-coluna);
+  }
+
   .hero__imagem img {
     object-position: 50% 50%;
   }
