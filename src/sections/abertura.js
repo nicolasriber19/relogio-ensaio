@@ -1,15 +1,24 @@
 // O relógio se abre: hero.webp → explodido.webp, com a seção fixada (pin) e o scroll controlando a animação.
 // Só transform, opacity e o traço do SVG. Com movimento reduzido (ou sem JS) fica a composição estática do HTML.
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-// A barra de endereço do celular muda a altura da janela; sem isto a página pula durante o pin.
-ScrollTrigger.config({ ignoreMobileResize: true })
+// O GSAP só é baixado quando a animação vai rodar: com "reduzir movimento" ligado, ele nunca chega.
 
 const MOVIMENTO_PERMITIDO = '(prefers-reduced-motion: no-preference)'
 const DISTANCIA_DO_PIN = '+=250%' // 2,5 telas de rolagem (limite do plano: 3)
+
+let carregamento = null
+
+// Baixa o GSAP e o ScrollTrigger uma vez só, em paralelo, e já deixa os dois configurados.
+function carregarGsap() {
+  carregamento ??= Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+    ([{ gsap }, { ScrollTrigger }]) => {
+      gsap.registerPlugin(ScrollTrigger)
+      // A barra de endereço do celular muda a altura da janela; sem isto a página pula durante o pin.
+      ScrollTrigger.config({ ignoreMobileResize: true })
+      return { gsap, ScrollTrigger }
+    },
+  )
+  return carregamento
+}
 
 // Carrega e decodifica as imagens antes de montar o gatilho, para o cruzamento não piscar.
 function precarregar(imagens) {
@@ -23,7 +32,7 @@ function precarregar(imagens) {
   )
 }
 
-function montar(secao, { hero, explodido, tracos, rotulo, legenda, passos }) {
+function montar(gsap, secao, { hero, explodido, tracos, rotulo, legenda, passos }) {
   secao.classList.add('abertura--animada')
 
   const tl = gsap.timeline({
@@ -67,30 +76,39 @@ export function init() {
     tracos: secao.querySelectorAll('.abertura__traco ellipse, .abertura__traco path'),
     rotulo: secao.querySelector('.abertura__rotulo'),
     legenda: secao.querySelector('figcaption'),
-    passos: gsap.utils.toArray('.etapas li', secao),
+    passos: [...secao.querySelectorAll('.etapas li')],
   }
   if (!partes.hero || !partes.explodido || !partes.rotulo || !partes.legenda || !partes.passos.length) return
 
-  // matchMedia desfaz tudo (pin, estilos e a classe) quando a preferência de movimento muda.
-  const mm = gsap.matchMedia()
-  mm.add(MOVIMENTO_PERMITIDO, (contexto) => {
-    let ativo = true
+  const iniciar = () => {
+    carregarGsap().then(({ gsap, ScrollTrigger }) => {
+      // matchMedia desfaz tudo (pin, estilos e a classe) quando a preferência de movimento muda.
+      const mm = gsap.matchMedia()
+      mm.add(MOVIMENTO_PERMITIDO, (contexto) => {
+        let ativo = true
 
-    precarregar([partes.hero, partes.explodido]).then(() => {
-      if (!ativo) return
-      // contexto.add: o que nasce depois do await também é desfeito pelo matchMedia.
-      contexto.add(() => montar(secao, partes))
+        precarregar([partes.hero, partes.explodido]).then(() => {
+          if (!ativo) return
+          // contexto.add: o que nasce depois do await também é desfeito pelo matchMedia.
+          contexto.add(() => montar(gsap, secao, partes))
 
-      // Imagens e fontes mudam as medidas da página: recalcula onde o pin começa e termina.
-      const recalcular = () => ativo && ScrollTrigger.refresh()
-      if (document.readyState === 'complete') recalcular()
-      else window.addEventListener('load', recalcular, { once: true })
-      document.fonts.ready.then(recalcular)
+          // Imagens e fontes mudam as medidas da página: recalcula onde o pin começa e termina.
+          const recalcular = () => ativo && ScrollTrigger.refresh()
+          if (document.readyState === 'complete') recalcular()
+          else window.addEventListener('load', recalcular, { once: true })
+          document.fonts.ready.then(recalcular)
+        })
+
+        return () => {
+          ativo = false
+          secao.classList.remove('abertura--animada')
+        }
+      })
     })
+  }
 
-    return () => {
-      ativo = false
-      secao.classList.remove('abertura--animada')
-    }
-  })
+  // Com "reduzir movimento" ligado, nada é baixado; se a pessoa desligar depois, a animação começa.
+  const consulta = window.matchMedia(MOVIMENTO_PERMITIDO)
+  if (consulta.matches) iniciar()
+  else consulta.addEventListener('change', iniciar, { once: true })
 }
