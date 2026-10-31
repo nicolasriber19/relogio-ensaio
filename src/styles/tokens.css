@@ -46,8 +46,10 @@
   --texto-legenda: 0.875rem; /* 14 px: só legenda e dado técnico, nunca o corpo */
   --texto-p: 1rem; /* 16 px: nunca menor no corpo */
   --texto-m: 1.25rem;
+  --texto-mg: clamp(1.25rem, 2vw, 1.5rem); /* 20 a 24 px: h3, o degrau entre o corpo e o h2 */
   --texto-g: clamp(1.75rem, 4vw, 2.5rem);
   --texto-display: clamp(2.5rem, 8vw, 5rem);
+  --texto-display-coluna: clamp(2.5rem, 5.25vw, 5rem); /* título do topo na coluna de 34% (desktop): "Calibre" cabe desde 1024 px */
   --entrelinha: 1.6;
 
   /* Espaço (múltiplos de 4 px: o número é o múltiplo) */

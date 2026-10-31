@@ -9,6 +9,8 @@ playwright-report/
 # capturas da skill /review-landing (a barra no começo é de propósito: sem ela,
 # o Git ignoraria também a própria skill em .claude/skills/review-landing/)
 /review-landing/
+# recortes da skill /revisao-rigorosa
+/revisao-rigorosa/
 
 # Imagens originais, antes de otimizar (pesadas; as versões finais vão para public/img)
 _originais/
