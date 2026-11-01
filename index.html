@@ -102,6 +102,15 @@
                 <ellipse cx="763" cy="390" rx="180" ry="215" pathLength="1" />
                 <path d="M 879 225 L 1056 110" pathLength="1" />
               </svg>
+              <!--
+                Só com a animação ligada: o filme do relógio se desmontando, avançado pela rolagem (o JS põe o src
+                com a base do site), e o traço que marca o movimento no último quadro dele (1916 x 1080).
+              -->
+              <video class="abertura__video" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+              <svg class="abertura__traco abertura__traco--video" viewBox="0 0 1916 1080" aria-hidden="true" focusable="false">
+                <ellipse cx="937" cy="450" rx="215" ry="210" pathLength="1" />
+                <path d="M 1090 302 L 1160 205" pathLength="1" />
+              </svg>
               <span class="abertura__rotulo" aria-hidden="true">Movimento</span>
             </div>
             <figcaption>Fig. 1 · Por dentro do calibre: cristal, mostrador, movimento, caixa e fundo. Imagem ilustrativa.</figcaption>
