@@ -214,6 +214,8 @@ figcaption {
 .hero h1 {
   font-size: var(--texto-display);
   font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--titulo-espaco-display);
   overflow-wrap: break-word;
 }
 
@@ -221,6 +223,7 @@ figcaption {
   font-family: var(--fonte-titulo);
   font-size: var(--texto-m);
   font-weight: 600;
+  line-height: 1.3;
 }
 
 /*

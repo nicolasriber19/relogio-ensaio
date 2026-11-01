@@ -44,12 +44,14 @@
   --fonte-texto: 'IBM Plex Sans', system-ui, sans-serif;
   --titulo-largura: 125%; /* eixo de largura do Archivo: letras expandidas, como gravação de caixa */
   --texto-legenda: 0.875rem; /* 14 px: só legenda e dado técnico, nunca o corpo */
-  --texto-p: 1rem; /* 16 px: nunca menor no corpo */
+  --texto-p: clamp(1rem, 0.977rem + 0.095vw, 1.0625rem); /* 16 px no celular a 17 px no desktop; nunca menor */
   --texto-m: 1.25rem;
   --texto-mg: clamp(1.25rem, 2vw, 1.5rem); /* 20 a 24 px: h3, o degrau entre o corpo e o h2 */
   --texto-g: clamp(1.75rem, 4vw, 2.5rem);
-  --texto-display: clamp(2.5rem, 8vw, 5rem);
+  --texto-display: clamp(2.5rem, 1.6rem + 3.7vw, 3.375rem); /* 40 px no celular a 54 px no tablet: emenda com a coluna em 1024 */
   --texto-display-coluna: clamp(2.5rem, 5.25vw, 5rem); /* título do topo na coluna de 34% (desktop): "Calibre" cabe desde 1024 px */
+  --titulo-espaco: -0.015em; /* títulos grandes um pouco mais justos */
+  --titulo-espaco-display: -0.02em;
   --entrelinha: 1.6;
 
   /* Espaço (múltiplos de 4 px: o número é o múltiplo) */

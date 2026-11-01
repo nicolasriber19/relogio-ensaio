@@ -11,6 +11,8 @@ playwright-report/
 /review-landing/
 # recortes da skill /revisao-rigorosa
 /revisao-rigorosa/
+# medidas, capturas e espécime da skill /tipografia-premium
+/tipografia/
 
 # Imagens originais, antes de otimizar (pesadas; as versões finais vão para public/img)
 _originais/
