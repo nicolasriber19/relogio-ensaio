@@ -9,6 +9,13 @@
   box-sizing: border-box;
 }
 
+/* 100%: respeita o tamanho de letra que o visitante escolheu no navegador.
+   Sem síntese: o navegador não inventa negrito ou itálico que a fonte não tem. */
+html {
+  font-size: 100%;
+  font-synthesis: none;
+}
+
 body {
   margin: 0;
   background: var(--cor-fundo);
@@ -31,7 +38,16 @@ h3 {
   font-family: var(--fonte-titulo);
   font-stretch: var(--titulo-largura);
   line-height: 1.1;
+  letter-spacing: var(--titulo-espaco);
   text-wrap: balance;
+}
+
+/* Nenhuma palavra sozinha na última linha de texto corrido */
+p,
+li,
+figcaption,
+dd {
+  text-wrap: pretty;
 }
 
 img,
