@@ -480,86 +480,179 @@ figcaption {
   font-size: var(--texto-legenda);
 }
 
-/* Centrado na altura também no celular: com start, o terço de baixo da tela ficava vazio durante o pin */
+/* O filme e o traço dele só existem na versão animada */
+.abertura__video,
+.abertura__traco--video {
+  display: none;
+}
+
+/*
+  Versão animada: a seção vira um palco do tamanho da tela. O filme fica atrás de tudo, no maior tamanho
+  que a tela permite (cobre a tela no desktop; faixa 16:9 inteira no celular, para nenhuma peça sair de
+  quadro), e o texto fica por cima, em cantos onde o filme é preto.
+*/
 .abertura--animada {
-  display: grid;
-  align-content: center;
+  position: relative;
   min-height: 100svh;
-  padding-block: var(--espaco-12) var(--espaco-6);
+  padding: 0;
+  overflow: hidden;
+  background: #000; /* o mesmo preto do estúdio do filme: a borda dele some no fundo */
 }
 
-@media (min-width: 48rem) {
-  .abertura--animada {
-    padding-block: var(--espaco-6);
-  }
-}
-
-/* Uma coluna só, centrada, com a largura do quadro. 25rem = o que sobra de texto acima e abaixo dele. */
 .abertura--animada .par {
-  grid-template-columns: 1fr;
-  gap: var(--espaco-3);
-  width: min(100%, max(20rem, calc((100svh - 25rem) * 16 / 9)));
-  margin-inline: auto;
+  display: block;
+  position: relative;
+  min-height: 100svh;
 }
 
-/* O texto vira itens da própria grade, para o quadro ficar entre o título e os passos */
+/* Cabeçalho: no alto, alinhado à coluna do resto da página. O bloco fica estático para os passos e a
+   legenda se posicionarem em relação ao palco inteiro, não a ele. */
 .abertura--animada .texto {
-  display: contents;
+  max-width: 34rem;
+  padding: var(--espaco-12) max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2)) 0;
+  box-sizing: content-box;
 }
 
-.abertura--animada .par > *,
-.abertura--animada .texto > * {
-  margin: 0;
+.abertura--animada .texto > :not(.etapas):not(.legenda) {
+  position: relative;
+  z-index: 2;
 }
 
-/* Linha de leitura confortável (cerca de 70 caracteres) no parágrafo de abertura */
-.abertura--animada .texto > p:not(.eyebrow):not(.legenda) {
-  max-width: 36rem;
+.abertura--animada .texto > * + * {
+  margin-top: var(--espaco-3);
 }
 
-.abertura--animada .abertura__figura {
-  order: 1;
-}
-
+/* Passos: no pé da tela, sobre o preto do filme, um de cada vez */
 .abertura--animada .etapas {
-  order: 2;
+  display: grid;
+  position: absolute;
+  z-index: 2;
+  bottom: var(--espaco-12);
+  left: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  width: min(calc(100% - 2 * var(--espaco-4)), 34rem);
+  margin: 0;
+  padding-left: 0;
+  font-size: var(--texto-m);
+  line-height: 1.4;
+  list-style: none;
+  counter-reset: etapa;
 }
 
 .abertura--animada .texto > .legenda {
-  order: 3;
+  position: absolute;
+  z-index: 2;
+  bottom: var(--espaco-6);
+  left: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  margin: 0;
+}
+
+/* O palco: um quadro 16:9 do tamanho que a tela pedir, centrado, atrás do texto */
+.abertura--animada .abertura__figura {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  pointer-events: none;
 }
 
 .abertura--animada .abertura__quadro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--canto);
-  background: var(--cor-fundo);
+  /* translate separado do transform: no celular o JS anima a escala sem desfazer a centralização */
+  translate: -50% -50%;
+  /* No celular a faixa do filme encontra o preto da seção sem linha: as bordas de cima e de baixo esfumam */
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
 }
 
-.abertura--animada .abertura__quadro img {
+/* Paisagem: o filme cobre a tela inteira (corta um pouco nas laterais ou em cima e embaixo) */
+@media (min-aspect-ratio: 4 / 3) {
+  .abertura--animada .abertura__quadro {
+    width: max(100vw, calc(100svh * 16 / 9));
+    mask-image: none;
+  }
+}
+
+.abertura--animada .abertura__hero,
+.abertura--animada .abertura__explodido,
+.abertura--animada .abertura__traco:not(.abertura__traco--video) {
+  display: none;
+}
+
+.abertura--animada .abertura__video {
   display: block;
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;
-  border-radius: 0;
   object-fit: cover;
-  will-change: transform, opacity;
+}
+
+.abertura--animada .abertura__traco--video {
+  display: block;
+}
+
+/* O rótulo acompanha o traço do último quadro do filme */
+.abertura--animada .abertura__rotulo {
+  top: 18%;
+  left: 60.5%;
+}
+
+/* No celular, legenda da figura e origem do movimento empilhadas no pé; no tablet e no desktop, em cantos opostos */
+.abertura--animada figcaption {
+  position: absolute;
+  z-index: 2;
+  left: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  bottom: calc(var(--espaco-6) + 1.75rem);
+  max-width: 22rem;
+  margin: 0;
+}
+
+.abertura--animada .etapas {
+  bottom: calc(var(--espaco-6) + 6.5rem);
+}
+
+@media (min-width: 48rem) {
+  .abertura--animada figcaption {
+    left: auto;
+    right: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+    bottom: var(--espaco-6);
+    text-align: right;
+  }
+
+  .abertura--animada .etapas {
+    bottom: var(--espaco-12);
+  }
+}
+
+/* Sombra só onde o texto fica, para ler sobre qualquer quadro do filme (não escurece a tela inteira) */
+.abertura--animada .par::before,
+.abertura--animada .par::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  width: min(100%, 48rem);
+  pointer-events: none;
+}
+
+.abertura--animada .par::before {
+  top: 0;
+  height: 22rem;
+  background: radial-gradient(ellipse at 0 0, rgb(0 0 0 / 0.85), transparent 70%);
+}
+
+.abertura--animada .par::after {
+  bottom: 0;
+  height: 14rem;
+  background: radial-gradient(ellipse at 0 100%, rgb(0 0 0 / 0.85), transparent 70%);
 }
 
 /* Traço de SVG: o JS anima o stroke-dashoffset (pathLength="1" no HTML); a animação parte do traço apagado */
 .abertura--animada .abertura__traco {
   stroke-dashoffset: 1;
-}
-
-/* Os 4 passos ocupam o mesmo lugar; o JS acende um de cada vez */
-.abertura--animada .etapas {
-  display: grid;
-  padding-left: 0;
-  list-style: none;
-  counter-reset: etapa;
 }
 
 .abertura--animada .etapas li {
