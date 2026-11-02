@@ -3,10 +3,22 @@
   Só tokens: nenhuma cor ou medida solta de design.
 */
 
+/* Margem da cena: a mesma coluna de texto no topo, na abertura e no resto da página.
+   O 100% vale onde a variável é usada (largura da seção). No desktop, nunca menos que 48 px. */
+:root {
+  --margem-cena: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --margem-cena: max(var(--espaco-12), calc((100% - var(--largura-maxima)) / 2));
+  }
+}
+
 /* Seções: o filete separa; o padding lateral centraliza no máximo de largura */
 main > section {
   padding-block: var(--espaco-12);
-  padding-inline: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  padding-inline: var(--margem-cena);
   border-top: 1px solid var(--cor-borda);
 }
 
@@ -100,32 +112,304 @@ figcaption {
   border-left: 2px solid var(--cor-verde-claro);
 }
 
-/* Ficha técnica: termo e valor em duas colunas, com régua entre as linhas.
-   Sem gap entre as colunas: o espaço vem do padding do termo, para cada régua ir de ponta a ponta. */
+/* Ficha técnica: enquanto os valores estão a confirmar, um bloco só, com os itens em etiquetas tracejadas
+   (o traço diz "falta preencher") e o caminho para a lista de espera. */
 .ficha {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0;
-  margin-bottom: 0;
+  margin-top: var(--espaco-8);
+  padding: var(--espaco-6);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--canto);
+  background: var(--cor-superficie);
 }
 
-.ficha dt,
-.ficha dd {
+.ficha h3 {
   margin: 0;
-  padding-block: var(--espaco-2);
-  border-top: 1px solid var(--cor-borda);
 }
 
-.ficha dt {
-  padding-right: var(--espaco-6);
+.ficha__estado {
+  margin: var(--espaco-2) 0 var(--espaco-4);
   color: var(--cor-texto-suave);
   font-size: var(--texto-legenda);
 }
 
-.ficha dd {
+.ficha__itens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+  margin: 0 0 var(--espaco-6);
+  padding: 0;
+  list-style: none;
+}
+
+.ficha__itens li {
+  padding: var(--espaco-1) var(--espaco-3);
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--canto);
   color: var(--cor-texto);
   font-size: var(--texto-legenda);
+}
+
+/*
+  Chamada para a lista: um botão de contorno verde que "respira". A cada 3,2 s um halo sai da borda e
+  se desfaz, devagar, como quem chama sem gritar. No hover o botão se enche de verde, a seta anda e o
+  halo para (a pessoa já atendeu); ao apertar, afunda um pouco. Com movimento reduzido, sem halo.
+*/
+.ficha__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-height: 2.75rem; /* área de toque de 44 px */
+  padding: 0 var(--espaco-6);
+  border: 1px solid var(--cor-verde-claro);
+  border-radius: var(--canto);
+  color: var(--cor-verde-claro);
+  font-size: var(--texto-legenda);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    background-color var(--duracao) var(--curva),
+    color var(--duracao) var(--curva),
+    scale 120ms var(--curva);
+}
+
+.ficha__link::after {
+  content: '→';
+  transition: translate var(--duracao) var(--curva);
+}
+
+/* O halo: uma cópia da borda que cresce e some (só transform e opacity) */
+.ficha__link::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--cor-verde-claro);
+  border-radius: inherit;
+  box-shadow:
+    0 0 14px rgb(124 195 160 / 0.45),
+    inset 0 0 10px rgb(124 195 160 / 0.25);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ficha__link::before {
+    animation: ficha-chamar 3.2s var(--curva) infinite;
+  }
+}
+
+@keyframes ficha-chamar {
+  0% {
+    opacity: 0.8;
+    scale: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+    scale: 1.08 1.4;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ficha__link:hover {
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-fundo);
+  }
+
+  .ficha__link:hover::after {
+    translate: 0.25em 0;
+  }
+
+  .ficha__link:hover::before {
+    animation: none;
+  }
+}
+
+.ficha__link:active {
+  scale: 0.97;
+}
+
+/*
+  A luz que segue o mouse (.ficha--luz, posta pelo na-caixa.js só com mouse). --x e --y vêm do JS,
+  relativos a cada elemento. Duas camadas: um brilho largo e fraco por dentro (::before) e um anel de
+  1 px que acende a borda perto do mouse (::after, a máscara deixa só a borda). Nas etiquetas, o anel
+  fecha o tracejado onde a luz passa. Tudo some em 300 ms quando o mouse sai.
+*/
+.ficha--luz,
+.ficha--luz .ficha__itens li {
+  position: relative;
+  isolation: isolate;
+}
+
+.ficha--luz::before,
+.ficha--luz::after,
+.ficha--luz .ficha__itens li::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--duracao) var(--curva);
+  pointer-events: none;
+}
+
+.ficha--luz::before {
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(20rem circle at var(--x, 50%) var(--y, 50%), rgb(124 195 160 / 0.2), rgb(124 195 160 / 0.06) 45%, transparent 75%);
+}
+
+.ficha--luz::after,
+.ficha--luz .ficha__itens li::after {
+  inset: -1px;
+  padding: 1px;
+  background: radial-gradient(16rem circle at var(--x, 50%) var(--y, 50%), var(--cor-foco), var(--cor-verde-claro) 25%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.ficha--luz .ficha__itens li::after {
+  background: radial-gradient(8rem circle at var(--x, 50%) var(--y, 50%), var(--cor-foco), var(--cor-verde-claro) 30%, transparent 75%);
+}
+
+/* A etiqueta perto do mouse também ganha um fundo aceso */
+.ficha--luz .ficha__itens li::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(6rem circle at var(--x, 50%) var(--y, 50%), rgb(124 195 160 / 0.22), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--duracao) var(--curva);
+  pointer-events: none;
+}
+
+.ficha--luz:hover .ficha__itens li::before {
+  opacity: 1;
+}
+
+/*
+  Na caixa: a foto da caixa aberta com três pontos numerados (a legenda embaixo diz o que é cada um).
+  Com .caixa--viva (na-caixa.js) os pontos começam apagados e acendem um a um quando a foto entra
+  na tela (.caixa--aberta), cada um com um anel que se abre uma vez.
+*/
+.caixa__palco {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--canto);
+  background: #0b0c0d;
+}
+
+.caixa__palco img {
+  display: block;
+  border: 0;
+  border-radius: 0;
+}
+
+.caixa__ponto {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  translate: -50% -50%;
+  border: 1px solid var(--cor-verde-claro);
+  border-radius: 50%;
+  background: rgb(17 19 21 / 0.75);
+  color: var(--cor-texto);
+  font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
+  backdrop-filter: blur(4px);
+}
+
+/* Um anel que se abre uma vez quando o ponto aparece */
+.caixa__ponto::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--cor-verde-claro);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.caixa--viva .caixa__ponto {
+  opacity: 0;
+  scale: 0.6;
+  transition:
+    opacity 400ms var(--curva),
+    scale 400ms var(--curva);
+}
+
+.caixa--viva.caixa--aberta .caixa__ponto {
+  opacity: 1;
+  scale: 1;
+}
+
+.caixa--viva.caixa--aberta .caixa__ponto::after {
+  animation: caixa-anel 1200ms var(--curva) both;
+}
+
+.caixa--viva.caixa--aberta .caixa__ponto:nth-of-type(2),
+.caixa--viva.caixa--aberta .caixa__ponto:nth-of-type(2)::after {
+  transition-delay: 250ms;
+  animation-delay: 250ms;
+}
+
+.caixa--viva.caixa--aberta .caixa__ponto:nth-of-type(3),
+.caixa--viva.caixa--aberta .caixa__ponto:nth-of-type(3)::after {
+  transition-delay: 500ms;
+  animation-delay: 500ms;
+}
+
+@keyframes caixa-anel {
+  from {
+    opacity: 0.9;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 2.2;
+  }
+}
+
+/* Legenda: os três números, em linha no desktop */
+.caixa__legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-1) var(--espaco-4);
+  margin: 0 0 var(--espaco-1);
+  padding: 0;
+  list-style: none;
+  counter-reset: caixa;
+  color: var(--cor-texto);
+}
+
+.caixa__legenda li {
+  counter-increment: caixa;
+}
+
+.caixa__legenda li::before {
+  content: counter(caixa);
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: var(--espaco-2);
+  border: 1px solid var(--cor-verde-claro);
+  border-radius: 50%;
+  font-size: 0.6875rem;
+}
+
+.ficha--luz:hover::before,
+.ficha--luz:hover::after,
+.ficha--luz:hover .ficha__itens li::after {
+  opacity: 1;
 }
 
 /* Botão principal: verde do mostrador, contorno claro (o verde sozinho dá só 2,3:1 contra o fundo) */
@@ -165,14 +449,16 @@ figcaption {
   No celular e no tablet, a foto fica em cima e ocupa o que sobra da tela; o texto vem embaixo,
   numa faixa escura. No desktop, o texto é uma coluna à esquerda e a foto fica ao lado.
 */
+/* Sem isolation: a faixa de texto precisa ficar acima do relógio que desce para a abertura (ver .viajante) */
+/* O topo usa o preto do estúdio do filme: topo e abertura são o mesmo lugar, sem caixa nem divisória */
 .hero {
   position: relative;
-  isolation: isolate;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   min-height: 100svh;
   padding: 0;
   overflow: hidden;
+  background: #000;
 }
 
 .hero > * + * {
@@ -194,13 +480,15 @@ figcaption {
   border-radius: 0;
   object-fit: cover;
   object-position: 50% 50%;
+  /* A borda de baixo da foto se dissolve no preto, onde começa o texto */
+  mask-image: linear-gradient(to bottom, #000 82%, transparent);
 }
 
 .hero__texto {
+  position: relative;
+  z-index: 2;
   grid-row: 2;
   padding: var(--espaco-6) var(--espaco-4) var(--espaco-8);
-  border-top: 1px solid var(--cor-borda);
-  background: var(--cor-fundo);
 }
 
 .hero__texto > * {
@@ -374,7 +662,7 @@ figcaption {
 
 /* Rodapé */
 .rodape {
-  padding: var(--espaco-12) max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  padding: var(--espaco-12) var(--margem-cena);
   border-top: 1px solid var(--cor-borda);
   color: var(--cor-texto-suave);
   font-size: var(--texto-legenda);
@@ -411,16 +699,19 @@ figcaption {
     justify-items: start;
   }
 
+  .hero {
+    /* Coluna do texto: começa na margem da cena e tem espaço para "Calibre" (cerca de 24rem de texto) */
+    --coluna-topo: max(34%, calc(var(--margem-cena) + 27rem));
+  }
+
   .hero__texto {
     grid-row: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    width: 34%;
-    padding: var(--espaco-12);
-    border-top: 0;
-    border-right: 1px solid var(--cor-borda);
+    width: var(--coluna-topo);
+    padding: var(--espaco-12) var(--espaco-12) var(--espaco-12) var(--margem-cena);
   }
 
   /* Na coluna estreita, 8vw passa da faixa entre 1024 e ~1165 px; aqui o título acompanha a coluna */
@@ -431,11 +722,13 @@ figcaption {
   /* A foto ocupa só a área ao lado da faixa: nada (faixa, linha, texto) fica por cima do relógio */
   .hero__imagem {
     position: absolute;
-    inset: 0 0 0 34%;
+    inset: 0 0 0 var(--coluna-topo);
   }
 
+  /* A borda esquerda da foto se dissolve no preto do texto */
   .hero__imagem img {
     object-position: 50% 50%;
+    mask-image: linear-gradient(to right, transparent, #000 18%);
   }
 }
 
@@ -480,6 +773,38 @@ figcaption {
   font-size: var(--texto-legenda);
 }
 
+/*
+  O relógio que desce do topo para a abertura (criado pelo abertura.js, só com a animação ligada).
+  Fica fixo na tela, já no tamanho e no lugar do primeiro quadro do filme; o JS o leva até lá com
+  transform e clip-path, a partir do lugar da foto do topo. Acima do fundo preto da abertura e abaixo
+  de todo texto (faixa do topo e cabeçalho da abertura têm z-index 2).
+*/
+.viajante {
+  position: fixed;
+  z-index: 1;
+  overflow: hidden;
+  transform-origin: 0 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.viajante img,
+.viajante svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border: 0;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.viajante [data-ponteiro] {
+  transform-box: view-box;
+  transform-origin: 0 0;
+}
+
 /* O filme e o traço dele só existem na versão animada */
 .abertura__video,
 .abertura__traco--video {
@@ -509,7 +834,7 @@ figcaption {
    legenda se posicionarem em relação ao palco inteiro, não a ele. */
 .abertura--animada .texto {
   max-width: 34rem;
-  padding: var(--espaco-12) max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2)) 0;
+  padding: var(--espaco-12) var(--margem-cena) 0;
   box-sizing: content-box;
 }
 
@@ -528,7 +853,7 @@ figcaption {
   position: absolute;
   z-index: 2;
   bottom: var(--espaco-12);
-  left: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  left: var(--margem-cena);
   width: min(calc(100% - 2 * var(--espaco-4)), 34rem);
   margin: 0;
   padding-left: 0;
@@ -542,7 +867,7 @@ figcaption {
   position: absolute;
   z-index: 2;
   bottom: var(--espaco-6);
-  left: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  left: var(--margem-cena);
   margin: 0;
 }
 
@@ -567,8 +892,18 @@ figcaption {
   mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
 }
 
-/* Paisagem: o filme cobre a tela inteira (corta um pouco nas laterais ou em cima e embaixo) */
-@media (min-aspect-ratio: 4 / 3) {
+/* Tela larga (16:10 ou mais): o filme cobre a tela inteira. Em tela 4:3 (1024 x 768), cobrir põe o mostrador
+   embaixo do título; ali fica a faixa 16:9 inteira, abaixo do texto, como no tablet. */
+@media (min-aspect-ratio: 16 / 10) {
+  /* Coluna de texto mais estreita: com o filme cobrindo a tela, o parágrafo para antes do aro do relógio */
+  .abertura--animada .texto {
+    max-width: 26rem;
+  }
+
+  .abertura--animada .texto > p:not(.eyebrow):not(.legenda) {
+    max-width: 21rem;
+  }
+
   .abertura--animada .abertura__quadro {
     width: max(100vw, calc(100svh * 16 / 9));
     mask-image: none;
@@ -604,7 +939,7 @@ figcaption {
 .abertura--animada figcaption {
   position: absolute;
   z-index: 2;
-  left: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+  left: var(--margem-cena);
   bottom: calc(var(--espaco-6) + 1.75rem);
   max-width: 22rem;
   margin: 0;
@@ -617,7 +952,7 @@ figcaption {
 @media (min-width: 48rem) {
   .abertura--animada figcaption {
     left: auto;
-    right: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
+    right: var(--margem-cena);
     bottom: var(--espaco-6);
     text-align: right;
   }
@@ -668,4 +1003,493 @@ figcaption {
   content: counter(etapa) ' de 4 · ';
   color: var(--cor-verde-claro);
   font-variant-numeric: tabular-nums;
+}
+
+/*
+  Mostrador (#mostrador): a luz que o visitante move.
+  Duas camadas de luz em cima da foto, presas ao centro do mostrador (42,4% x 58,6% da foto):
+  uma no verde (clareia e escurece o acabamento radial) e outra no aço (índices e ponteiros brilham).
+  Cada camada só aparece onde a máscara dela deixa. --ang é o ângulo da luz, de 0 (12 h) no sentido horário.
+  Sem JS ou com movimento reduzido, a luz fica parada em --ang padrão: a foto ganha um brilho fixo.
+*/
+/* Sem quadro: o mostrador fica solto no fundo, com as bordas se dissolvendo a partir do centro dele */
+.mostrador__palco {
+  --ang: 300deg;
+  --centro: 42.4% 58.6%;
+  position: relative;
+  overflow: hidden;
+  /* Duas faixas que se cruzam: a foto some nos quatro lados, e o centro do mostrador fica inteiro */
+  mask-image:
+    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent),
+    linear-gradient(to right, transparent, #000 16%, #000 70%, transparent);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent),
+    linear-gradient(to right, transparent, #000 16%, #000 70%, transparent);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.mostrador__palco img {
+  border: 0;
+  border-radius: 0;
+}
+
+.mostrador__luz {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+}
+
+/* No verde: uma faixa clara na direção da luz, a oposta mais fraca, e as laterais mais escuras */
+.mostrador__luz--verde {
+  background: conic-gradient(
+    from calc(var(--ang) - 22deg) at var(--centro),
+    rgb(255 255 255 / 0) 0deg,
+    rgb(255 255 255 / 1) 22deg,
+    rgb(255 255 255 / 0) 44deg,
+    rgb(0 0 0 / 0.8) 90deg,
+    rgb(0 0 0 / 0) 136deg,
+    rgb(255 255 255 / 0.6) 202deg,
+    rgb(255 255 255 / 0) 238deg,
+    rgb(0 0 0 / 0.8) 270deg,
+    rgb(0 0 0 / 0) 330deg
+  );
+  mix-blend-mode: overlay;
+  mask-image: url('/img/mostrador-mascara-verde.webp');
+  -webkit-mask-image: url('/img/mostrador-mascara-verde.webp');
+}
+
+/* No aço: um reflexo estreito, só onde a luz bate */
+.mostrador__luz--aco {
+  background: conic-gradient(
+    from calc(var(--ang) - 14deg) at var(--centro),
+    rgb(255 255 255 / 0) 0deg,
+    rgb(255 255 255 / 0.9) 14deg,
+    rgb(255 255 255 / 0) 28deg,
+    rgb(255 255 255 / 0) 180deg,
+    rgb(255 255 255 / 0.45) 194deg,
+    rgb(255 255 255 / 0) 208deg
+  );
+  mix-blend-mode: screen;
+  mask-image: url('/img/mostrador-mascara-aco.webp');
+  -webkit-mask-image: url('/img/mostrador-mascara-aco.webp');
+}
+
+/* Pontos dos detalhes: só aparecem com a interação ligada (o JS põe .mostrador--vivo) */
+.mostrador__ponto {
+  display: none;
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 1rem;
+  height: 1rem;
+  translate: -50% -50%;
+  border: 2px solid var(--cor-verde-claro);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.45);
+  transition: transform var(--duracao) var(--curva);
+}
+
+.mostrador__rotulo {
+  position: absolute;
+  bottom: calc(100% + var(--espaco-2));
+  left: 50%;
+  translate: -50% 0;
+  padding: var(--espaco-1) var(--espaco-2);
+  border: 1px solid var(--cor-verde-claro);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-size: var(--texto-legenda);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--duracao) var(--curva);
+}
+
+.mostrador--vivo .mostrador__ponto {
+  display: block;
+}
+
+.mostrador__ponto.ativo {
+  transform: scale(1.35);
+  background: var(--cor-verde-claro);
+}
+
+.mostrador__ponto.ativo .mostrador__rotulo {
+  opacity: 1;
+}
+
+/* A lista vira o controle: cada item leva a luz até a peça. Sem JS, parece texto comum. */
+.detalhes__botao {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem; /* 44 px: área de toque mínima */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mostrador--vivo .detalhes li {
+  color: var(--cor-texto-suave);
+  transition: color var(--duracao) var(--curva);
+}
+
+.mostrador--vivo .detalhes li.ativo {
+  color: var(--cor-texto);
+}
+
+.mostrador__dica,
+.mostrador__inclinar {
+  display: none;
+}
+
+.mostrador--vivo .mostrador__dica {
+  display: block;
+}
+
+.mostrador--vivo .mostrador__inclinar:not([hidden]) {
+  display: inline-flex;
+}
+
+/* Botão de apoio: contorno, sem o verde de fundo da ação principal */
+.botao--secundario {
+  background: transparent;
+  color: var(--cor-texto);
+}
+
+/* Entrada: o palco cresce um pouco quando a seção chega (só com movimento permitido) */
+.mostrador--vivo .mostrador__figura {
+  transform: scale(0.94);
+  opacity: 0.6;
+  transition:
+    transform 900ms var(--curva),
+    opacity 900ms var(--curva);
+}
+
+.mostrador--vivo.em-cena .mostrador__figura {
+  transform: none;
+  opacity: 1;
+}
+
+/* Desktop: o mostrador é o palco. Sai da margem e encosta na borda esquerda da tela (62% da largura);
+   o texto fica numa coluna estreita ao lado, na margem da cena. */
+@media (min-width: 64rem) {
+  .mostrador {
+    padding-left: 0;
+  }
+
+  .mostrador .par {
+    grid-template-columns: 62vw 1fr;
+    gap: var(--espaco-12);
+  }
+
+
+  .mostrador__figura figcaption {
+    padding-left: var(--margem-cena);
+  }
+}
+
+/* O índice fica perto da borda direita da foto: o rótulo dele abre para a esquerda */
+.mostrador__ponto[data-ponto='indice'] .mostrador__rotulo {
+  left: auto;
+  right: 50%;
+  translate: 0 0;
+}
+
+/*
+  Mergulho: depois da vista explodida, a câmera entra no mostrador (segundo filme, na mesma abertura) e o
+  mostrador viaja até o palco da seção seguinte. Só com a animação ligada (o abertura.js põe as classes).
+*/
+.abertura--animada .abertura__video--mergulho {
+  opacity: 0;
+}
+
+.mostrador--mergulho {
+  border-top: 0;
+  background: #000;
+}
+
+/* O palco já nasce no tamanho final: a entrada com escala mudaria o lugar para onde o mostrador viaja */
+.mostrador--mergulho .mostrador__figura {
+  transform: none;
+  opacity: 1;
+  transition: none;
+}
+
+/* O texto fica acima do mostrador que chega */
+.mostrador--mergulho .texto {
+  position: relative;
+  z-index: 2;
+}
+
+/* Celular e tablet: o mostrador vem primeiro, logo abaixo do topo da tela, para onde ele viaja */
+@media (max-width: 63.99rem) {
+  .mostrador--mergulho .mostrador__figura {
+    order: -1;
+  }
+}
+
+/*
+  Pulseiras (#pulseiras): o mesmo relógio, três pulseiras. O palco só existe com a troca ligada
+  (.troca--viva, posta pelo pulseiras.js); sem JS ou com movimento reduzido valem os cartões e as fotos.
+  O relógio fica solto no cenário: a borda da foto (fundo preto) se dissolve numa elipse.
+*/
+.troca__palco,
+.troca__anuncio,
+.troca__descricao {
+  display: none;
+}
+
+.troca__botao {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.troca--viva .troca__palco {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100svh - 12rem); /* o palco e os cartões cabem juntos na tela */
+  width: 100vw;
+  margin-left: calc(50% - 50vw); /* sai da coluna e ocupa a largura da tela */
+  overflow: hidden;
+  background: #000;
+}
+
+/* Girar na mão: o palco vira uma "alça" (mão aberta, mão fechada ao segurar) */
+.troca--viva .troca__palco {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.troca--girando .troca__palco {
+  cursor: grabbing;
+}
+
+/* A dica fica embaixo do relógio, respira devagar e some depois do primeiro giro */
+.troca__dica {
+  position: absolute;
+  z-index: 4;
+  bottom: var(--espaco-4);
+  left: 50%;
+  margin: 0;
+  padding: var(--espaco-1) var(--espaco-3);
+  translate: -50% 0;
+  border: 1px solid rgb(228 231 234 / 0.25);
+  border-radius: 999px;
+  background: rgb(17 19 21 / 0.55);
+  color: var(--cor-texto);
+  font-size: var(--texto-legenda);
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  transition: opacity 500ms var(--curva);
+}
+
+.troca__dica span {
+  display: inline-block;
+  color: var(--cor-verde-claro);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .troca__dica span:first-child {
+    animation: troca-seta-esq 2.4s var(--curva) infinite;
+  }
+
+  .troca__dica span:last-child {
+    animation: troca-seta-dir 2.4s var(--curva) infinite;
+  }
+}
+
+@keyframes troca-seta-esq {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -0.25em 0;
+  }
+}
+
+@keyframes troca-seta-dir {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0.25em 0;
+  }
+}
+
+.troca--girou .troca__dica {
+  opacity: 0;
+}
+
+/* Leitor de tela ouve a troca; a tela não mostra este texto */
+.troca--viva .troca__anuncio {
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.troca__cena,
+.troca__relogio {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border: 0;
+  border-radius: 0;
+  object-fit: cover;
+  opacity: 0;
+}
+
+/* O cenário: grande, escuro e quieto; troca com esmaecimento lento */
+.troca__cena {
+  transform: scale(1.06);
+  transition:
+    opacity 900ms var(--curva),
+    transform 1600ms var(--curva);
+}
+
+.troca__cena.ativa {
+  opacity: 0.85;
+  transform: none;
+}
+
+/*
+  O relógio: filme em retrato (806 x 1000), na altura do palco e centrado. O fundo preto do filme some
+  nas bordas e deixa o cenário aparecer em volta; o relógio inteiro fica dentro da parte sólida da máscara.
+*/
+.troca__relogio {
+  inset: 0 auto;
+  left: 50%;
+  width: auto;
+  aspect-ratio: 806 / 1000;
+  translate: -50% 0;
+  object-fit: contain;
+  mask-image: radial-gradient(ellipse 52% 50% at 50% 52%, #000 66%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 52% 50% at 50% 52%, #000 66%, transparent 92%);
+}
+
+.troca__relogio.ativa {
+  opacity: 1;
+}
+
+/* Um halo escuro, maior que o filme, atrás do relógio: a borda preta do filme cai numa área já escura */
+.troca--viva .troca__palco::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto;
+  left: 50%;
+  aspect-ratio: 806 / 1000;
+  translate: -50% 0;
+  scale: 2.2 1.2;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.92) 40%, rgb(0 0 0 / 0.6) 62%, rgb(0 0 0 / 0.25) 82%, transparent);
+  pointer-events: none;
+}
+
+/* Os cartões viram o seletor: o escolhido acende, os outros recuam */
+.troca--viva .pulseiras {
+  margin-top: var(--espaco-6);
+}
+
+.troca--viva .pulseiras li {
+  position: relative;
+  transition:
+    border-color var(--duracao) var(--curva),
+    opacity var(--duracao) var(--curva);
+  opacity: 0.6;
+}
+
+.troca--viva .pulseiras li.ativa {
+  border-color: var(--cor-verde-claro);
+  opacity: 1;
+}
+
+/* O botão cobre o cartão inteiro: clicar em qualquer parte dele escolhe a pulseira */
+.troca--viva .troca__botao {
+  cursor: pointer;
+}
+
+.troca--viva .troca__botao::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .troca--viva .pulseiras li:hover {
+    opacity: 1;
+  }
+}
+
+/* Celular: o palco fica em retrato, quase na proporção do filme, e o relógio ocupa a largura */
+@media (max-width: 47.99rem) {
+  .troca--viva .troca__palco {
+    aspect-ratio: 4 / 5;
+  }
+
+  /* Os cartões viram três botões compactos logo abaixo do relógio; a descrição aparece embaixo deles */
+  .troca--viva .pulseiras {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--espaco-2);
+    margin-top: var(--espaco-4);
+  }
+
+  .troca--viva .pulseiras li {
+    display: grid;
+    place-items: center;
+    min-height: 3rem;
+    padding: var(--espaco-2);
+    text-align: center;
+  }
+
+  .troca--viva .pulseiras li > p {
+    display: none;
+  }
+
+  .troca--viva .pulseiras h3 {
+    font-size: var(--texto-legenda);
+    letter-spacing: 0;
+  }
+
+  .troca--viva .troca__botao {
+    text-align: center;
+  }
+
+  .troca--viva .troca__descricao {
+    display: block;
+    order: 3;
+    min-height: 4.5em;
+    margin-top: var(--espaco-4);
+  }
+}
+
+/* A ordem no celular: palco, botões, descrição */
+.troca--viva {
+  display: flex;
+  flex-direction: column;
+}
+
+.troca--viva .pulseiras {
+  order: 2;
 }
