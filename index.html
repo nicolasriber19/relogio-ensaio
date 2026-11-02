@@ -107,6 +107,8 @@
                 com a base do site), e o traço que marca o movimento no último quadro dele (1916 x 1080).
               -->
               <video class="abertura__video" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+              <!-- Depois da vista explodida: a câmera mergulha no mostrador, que segue para a seção seguinte -->
+              <video class="abertura__video abertura__video--mergulho" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
               <svg class="abertura__traco abertura__traco--video" viewBox="0 0 1916 1080" aria-hidden="true" focusable="false">
                 <ellipse cx="937" cy="450" rx="215" ry="210" pathLength="1" />
                 <path d="M 1090 302 L 1160 205" pathLength="1" />
@@ -118,23 +120,34 @@
         </div>
       </section>
 
-      <section id="mostrador" aria-labelledby="mostrador-titulo">
+      <section id="mostrador" class="mostrador" aria-labelledby="mostrador-titulo">
         <div class="par par--inverso">
           <div class="texto">
             <p class="eyebrow">02 · Mostrador</p>
             <h2 id="mostrador-titulo">Verde com raios de luz</h2>
             <p>O mostrador tem acabamento radial: a luz corre pelo verde conforme você move o pulso. É um verde de fugir do preto e do azul de sempre.</p>
+            <!-- Cada detalhe leva a luz até a peça dele no mostrador (o mostrador.js liga os botões) -->
             <ul class="detalhes">
-              <li>Acabamento radial, do centro para a borda</li>
-              <li>Índices facetados, que pegam a luz</li>
-              <li>Ponteiros afilados, fáceis de ler</li>
+              <li data-alvo="radial"><button class="detalhes__botao" type="button">Acabamento radial, do centro para a borda</button></li>
+              <li data-alvo="indice"><button class="detalhes__botao" type="button">Índices facetados, que pegam a luz</button></li>
+              <li data-alvo="ponteiro"><button class="detalhes__botao" type="button">Ponteiros afilados, fáceis de ler</button></li>
             </ul>
+            <p class="legenda mostrador__dica" data-dica>Mova o mouse sobre o mostrador: a luz acompanha.</p>
+            <button class="botao botao--secundario mostrador__inclinar" type="button" data-inclinar hidden>Incline o celular para mover a luz</button>
           </div>
-          <figure>
-            <img src="/img/mostrador.webp" srcset="/img/mostrador-800.webp 800w, /img/mostrador-1200.webp 1200w, /img/mostrador.webp 1600w"
-              sizes="(min-width: 74rem) 35rem, (min-width: 48rem) calc(50vw - 2rem), calc(100vw - 2rem)"
-              width="1600" height="900" loading="lazy" decoding="async"
-              alt="Close do mostrador verde de acabamento radial, com índices facetados, ponteiros de horas e minutos e ponteiro fino de segundos." />
+          <figure class="mostrador__figura">
+            <!-- Palco: a foto, duas camadas de luz (no verde e no aço) e os pontos de cada detalhe. --ang gira a luz. -->
+            <div class="mostrador__palco">
+              <img src="/img/mostrador.webp" srcset="/img/mostrador-800.webp 800w, /img/mostrador-1200.webp 1200w, /img/mostrador.webp 1600w"
+                sizes="(min-width: 64rem) 58vw, (min-width: 48rem) calc(50vw - 2rem), calc(100vw - 2rem)"
+                width="1600" height="900" loading="lazy" decoding="async"
+                alt="Close do mostrador verde de acabamento radial, com índices facetados, ponteiros de horas e minutos e ponteiro fino de segundos." />
+              <span class="mostrador__luz mostrador__luz--verde" aria-hidden="true"></span>
+              <span class="mostrador__luz mostrador__luz--aco" aria-hidden="true"></span>
+              <span class="mostrador__ponto" data-ponto="radial" style="--x: 49.4%; --y: 33.2%" aria-hidden="true"><span class="mostrador__rotulo">Acabamento radial</span></span>
+              <span class="mostrador__ponto" data-ponto="indice" style="--x: 83.1%; --y: 72.5%" aria-hidden="true"><span class="mostrador__rotulo">Índice facetado</span></span>
+              <span class="mostrador__ponto" data-ponto="ponteiro" style="--x: 71.9%; --y: 40.4%" aria-hidden="true"><span class="mostrador__rotulo">Ponteiro afilado</span></span>
+            </div>
             <figcaption>Fig. 2 · Detalhe do mostrador.</figcaption>
           </figure>
         </div>
@@ -146,23 +159,44 @@
           <h2 id="pulseiras-titulo">Um relógio, três jeitos de usar</h2>
           <p>Três pulseiras trocáveis mudam o visual do dia a dia ao social, sem comprar outro&nbsp;relógio.</p>
         </div>
-        <ul class="pulseiras">
-          <li>
-            <h3>Dia a dia</h3>
-            <p>Pulseira de elos metálicos, a de uso comum.</p>
-            <p class="legenda">Material: a confirmar</p>
-          </li>
-          <li>
-            <h3>Social</h3>
-            <p>Pulseira marrom com costura clara, para camisa e reunião.</p>
-            <p class="legenda">Material: a confirmar</p>
-          </li>
-          <li>
-            <h3>Fim de semana</h3>
-            <p>Pulseira preta com sulcos, para o uso mais solto.</p>
-            <p class="legenda">Material: a confirmar</p>
-          </li>
-        </ul>
+        <!--
+          Troca de pulseira: o mesmo relógio, com a pulseira e o cenário mudando. Só com JS e movimento
+          permitido (o pulseiras.js põe .troca--viva); sem isso o palco fica escondido e valem os cartões e as fotos.
+          Os três filmes do relógio começam no mesmo quadro e giram igual: só a pulseira muda entre eles.
+        -->
+        <div class="troca" data-troca>
+          <div class="troca__palco" aria-hidden="true">
+            <img class="troca__cena" data-opcao="dia" src="/img/cena-dia.webp" srcset="/img/cena-dia-800.webp 800w, /img/cena-dia.webp 1600w" sizes="100vw" width="1600" height="904" loading="lazy" decoding="async" alt="" />
+            <img class="troca__cena" data-opcao="social" src="/img/cena-social.webp" srcset="/img/cena-social-800.webp 800w, /img/cena-social.webp 1600w" sizes="100vw" width="1600" height="904" loading="lazy" decoding="async" alt="" />
+            <img class="troca__cena" data-opcao="fds" src="/img/cena-fds.webp" srcset="/img/cena-fds-800.webp 800w, /img/cena-fds.webp 1600w" sizes="100vw" width="1600" height="904" loading="lazy" decoding="async" alt="" />
+            <!-- O relógio inteiro girando devagar; o pulseiras.js põe o filme e a capa (nada baixa sem ele) -->
+            <video class="troca__relogio" data-opcao="dia" data-filme="giro-aco" width="806" height="1000" muted loop playsinline preload="none"></video>
+            <video class="troca__relogio" data-opcao="social" data-filme="giro-couro" width="806" height="1000" muted loop playsinline preload="none"></video>
+            <video class="troca__relogio" data-opcao="fds" data-filme="giro-borracha" width="806" height="1000" muted loop playsinline preload="none"></video>
+            <!-- Some depois do primeiro giro na mão -->
+            <p class="troca__dica"><span aria-hidden="true">←</span> Arraste para girar <span aria-hidden="true">→</span></p>
+          </div>
+          <p class="troca__anuncio" aria-live="polite" data-anuncio></p>
+          <!-- Celular: a descrição da pulseira escolhida (os cartões viram botões compactos) -->
+          <p class="troca__descricao" data-descricao></p>
+          <ul class="pulseiras">
+            <li data-opcao="dia">
+              <h3><button class="troca__botao" type="button" aria-pressed="false">Dia a dia</button></h3>
+              <p>Pulseira de elos metálicos, a de uso comum.</p>
+              <p class="legenda">Material: a confirmar</p>
+            </li>
+            <li data-opcao="social">
+              <h3><button class="troca__botao" type="button" aria-pressed="false">Social</button></h3>
+              <p>Pulseira marrom com costura clara, para camisa e reunião.</p>
+              <p class="legenda">Material: a confirmar</p>
+            </li>
+            <li data-opcao="fds">
+              <h3><button class="troca__botao" type="button" aria-pressed="false">Fim de semana</button></h3>
+              <p>Pulseira preta com sulcos, para o uso mais solto.</p>
+              <p class="legenda">Material: a confirmar</p>
+            </li>
+          </ul>
+        </div>
         <div class="par">
           <figure>
             <img src="/img/pulseiras.webp" srcset="/img/pulseiras-800.webp 800w, /img/pulseiras-1200.webp 1200w, /img/pulseiras.webp 1600w"
@@ -190,28 +224,43 @@
               <li>1 relógio Calibre Norte, de aço, com mostrador verde</li>
               <li>3 pulseiras trocáveis: Dia a dia, Social e Fim de semana</li>
             </ul>
-            <h3>Ficha técnica</h3>
-            <dl class="ficha">
-              <dt>Movimento</dt>
-              <dd>a confirmar</dd>
-              <dt>Frequência</dt>
-              <dd>a confirmar</dd>
-              <dt>Reserva de marcha</dt>
-              <dd>a confirmar</dd>
-              <dt>Rubis</dt>
-              <dd>a confirmar</dd>
-              <dt>Diâmetro da caixa</dt>
-              <dd>a confirmar</dd>
-              <dt>Resistência à água</dt>
-              <dd>a confirmar</dd>
-            </dl>
+            <!-- Ficha técnica: os seis valores ainda estão a confirmar; um bloco só, em vez de seis linhas iguais -->
+            <div class="ficha">
+              <h3>Ficha técnica</h3>
+              <p class="ficha__estado">A confirmar. Os valores entram aqui quando forem fechados, sem estimativa.</p>
+              <ul class="ficha__itens" aria-label="Itens da ficha técnica, todos a confirmar">
+                <li>Movimento</li>
+                <li>Frequência</li>
+                <li>Reserva de marcha</li>
+                <li>Rubis</li>
+                <li>Diâmetro da caixa</li>
+                <li>Resistência à água</li>
+              </ul>
+              <a class="ficha__link" href="#lista-espera">Entrar na lista de espera</a>
+            </div>
           </div>
-          <figure>
-            <img src="/img/estojo.webp" srcset="/img/estojo-800.webp 800w, /img/estojo-1200.webp 1200w, /img/estojo.webp 1600w"
-              sizes="(min-width: 74rem) 35rem, (min-width: 48rem) calc(50vw - 2rem), calc(100vw - 2rem)"
-              width="1600" height="900" loading="lazy" decoding="async"
-              alt="Relógio de aço com mostrador verde sobre uma almofada de veludo, dentro de um estojo verde-escuro aberto." />
-            <figcaption>Fig. 5 · Imagem ilustrativa. O que vem na caixa é o que está na lista.</figcaption>
+          <!--
+            A caixa aberta com os três pontos numerados. Com JS e movimento permitido (na-caixa.js põe
+            .caixa--viva), os pontos acendem um a um quando a foto entra na tela; sem isso já ficam à vista.
+          -->
+          <figure class="caixa" data-caixa>
+            <div class="caixa__palco">
+              <img class="caixa__foto" src="/img/caixa-aberta.webp" srcset="/img/caixa-aberta-800.webp 800w, /img/caixa-aberta-1200.webp 1200w, /img/caixa-aberta.webp 1600w"
+                sizes="(min-width: 74rem) 35rem, (min-width: 48rem) calc(50vw - 2rem), calc(100vw - 2rem)"
+                width="1600" height="894" loading="lazy" decoding="async"
+                alt="Estojo verde-escuro aberto com três encaixes: o relógio de aço de mostrador verde com a pulseira de aço, a pulseira de couro marrom e a pulseira de borracha preta." />
+              <span class="caixa__ponto" style="--x: 31.5%; --y: 60%" aria-hidden="true">1</span>
+              <span class="caixa__ponto" style="--x: 46.7%; --y: 52%" aria-hidden="true">2</span>
+              <span class="caixa__ponto" style="--x: 59.6%; --y: 58%" aria-hidden="true">3</span>
+            </div>
+            <figcaption>
+              <ol class="caixa__legenda">
+                <li>Relógio com a pulseira Dia a dia</li>
+                <li>Pulseira Social</li>
+                <li>Pulseira Fim de semana</li>
+              </ol>
+              <span>Fig. 5 · Imagem ilustrativa.</span>
+            </figcaption>
           </figure>
         </div>
       </section>
