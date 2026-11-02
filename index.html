@@ -162,17 +162,17 @@
         <!--
           Troca de pulseira: o mesmo relógio, com a pulseira e o cenário mudando. Só com JS e movimento
           permitido (o pulseiras.js põe .troca--viva); sem isso o palco fica escondido e valem os cartões e as fotos.
-          Os três filmes do relógio começam no mesmo quadro e giram igual: só a pulseira muda entre eles.
+          As três sequências de fotos começam no mesmo ângulo e giram igual: só a pulseira muda entre elas.
         -->
         <div class="troca" data-troca>
           <div class="troca__palco" aria-hidden="true">
             <img class="troca__cena" data-opcao="dia" src="/img/cena-dia.webp" srcset="/img/cena-dia-800.webp 800w, /img/cena-dia.webp 1600w" sizes="100vw" width="1600" height="904" loading="lazy" decoding="async" alt="" />
             <img class="troca__cena" data-opcao="social" src="/img/cena-social.webp" srcset="/img/cena-social-800.webp 800w, /img/cena-social.webp 1600w" sizes="100vw" width="1600" height="904" loading="lazy" decoding="async" alt="" />
             <img class="troca__cena" data-opcao="fds" src="/img/cena-fds.webp" srcset="/img/cena-fds-800.webp 800w, /img/cena-fds.webp 1600w" sizes="100vw" width="1600" height="904" loading="lazy" decoding="async" alt="" />
-            <!-- O relógio inteiro girando devagar; o pulseiras.js põe o filme e a capa (nada baixa sem ele) -->
-            <video class="troca__relogio" data-opcao="dia" data-filme="giro-aco" width="806" height="1000" muted loop playsinline preload="none"></video>
-            <video class="troca__relogio" data-opcao="social" data-filme="giro-couro" width="806" height="1000" muted loop playsinline preload="none"></video>
-            <video class="troca__relogio" data-opcao="fds" data-filme="giro-borracha" width="806" height="1000" muted loop playsinline preload="none"></video>
+            <!-- O relógio em 360 graus: o pulseiras.js desenha aqui as 60 fotos de cada pulseira (nada baixa sem ele) -->
+            <canvas class="troca__relogio" data-opcao="dia" data-giro="aco" width="886" height="1100"></canvas>
+            <canvas class="troca__relogio" data-opcao="social" data-giro="couro" width="886" height="1100"></canvas>
+            <canvas class="troca__relogio" data-opcao="fds" data-giro="borracha" width="886" height="1100"></canvas>
             <!-- Some depois do primeiro giro na mão -->
             <p class="troca__dica"><span aria-hidden="true">←</span> Arraste para girar <span aria-hidden="true">→</span></p>
           </div>

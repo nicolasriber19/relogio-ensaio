@@ -1289,11 +1289,10 @@ figcaption {
   translate: -50% 0;
   border: 1px solid rgb(228 231 234 / 0.25);
   border-radius: 999px;
-  background: rgb(17 19 21 / 0.55);
+  background: rgb(17 19 21 / 0.8); /* fundo sólido: um desfoque aqui seria refeito a cada quadro do giro */
   color: var(--cor-texto);
   font-size: var(--texto-legenda);
   white-space: nowrap;
-  backdrop-filter: blur(6px);
   pointer-events: none;
   transition: opacity 500ms var(--curva);
 }
@@ -1375,8 +1374,9 @@ figcaption {
 }
 
 /*
-  O relógio: filme em retrato (806 x 1000), na altura do palco e centrado. O fundo preto do filme some
-  nas bordas e deixa o cenário aparecer em volta; o relógio inteiro fica dentro da parte sólida da máscara.
+  O relógio: canvas em retrato (fotos de 886 x 1100), na altura do palco e centrado. O fundo preto das
+  fotos some nas bordas numa oval que o pulseiras.js aplica no próprio canvas (mais leve que uma máscara
+  CSS refeita a cada quadro); o relógio inteiro fica dentro da parte sólida dela.
 */
 .troca__relogio {
   inset: 0 auto;
@@ -1384,9 +1384,6 @@ figcaption {
   width: auto;
   aspect-ratio: 806 / 1000;
   translate: -50% 0;
-  object-fit: contain;
-  mask-image: radial-gradient(ellipse 52% 50% at 50% 52%, #000 66%, transparent 92%);
-  -webkit-mask-image: radial-gradient(ellipse 52% 50% at 50% 52%, #000 66%, transparent 92%);
 }
 
 .troca__relogio.ativa {
