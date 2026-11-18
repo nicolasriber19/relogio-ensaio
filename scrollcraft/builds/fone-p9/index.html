@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fone P9 · por dentro</title>
+<meta name="description" content="Fone P9: headset over-ear com Bluetooth 5.1, microfone embutido e até 4 horas de bateria. Veja por dentro, peça por peça.">
+<meta name="theme-color" content="#0B0F14">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230B0F14'/><path d='M8 19v-3a8 8 0 0 1 16 0v3' fill='none' stroke='%238CBCF5' stroke-width='2.4' stroke-linecap='round'/><rect x='6' y='17' width='5' height='8' rx='2' fill='%238CBCF5'/><rect x='21' y='17' width='5' height='8' rx='2' fill='%238CBCF5'/></svg>">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="fonts/archivo-latin-wdth.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="estilo.css">
+<noscript><style>[data-sc-in],[data-sc-stagger]>*{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<!-- fone:defs:inicio -->
+<svg class="fone-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+
+<linearGradient id="g-corpo" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#9AABC2"/><stop offset=".45" stop-color="#6B7F99"/><stop offset="1" stop-color="#46566C"/>
+</linearGradient>
+<linearGradient id="g-fora" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#A9B9CE"/><stop offset=".38" stop-color="#7D90AA"/><stop offset="1" stop-color="#4A5A70"/>
+</linearGradient>
+<radialGradient id="g-brilho" cx=".34" cy=".26" r=".6">
+  <stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="g-fundo-concha" cx=".5" cy=".42" r=".62">
+  <stop offset="0" stop-color="#344153"/><stop offset="1" stop-color="#1A222D"/>
+</radialGradient>
+<linearGradient id="g-bateria" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#C7D2DF"/><stop offset="1" stop-color="#8794A6"/>
+</linearGradient>
+<radialGradient id="g-cone" cx=".42" cy=".38" r=".7">
+  <stop offset="0" stop-color="#4C5D74"/><stop offset=".6" stop-color="#28323F"/><stop offset="1" stop-color="#151B24"/>
+</radialGradient>
+<radialGradient id="g-tampa" cx=".36" cy=".32" r=".75">
+  <stop offset="0" stop-color="#B5C3D5"/><stop offset=".5" stop-color="#5E7089"/><stop offset="1" stop-color="#2B3543"/>
+</radialGradient>
+<linearGradient id="g-cromo" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#7D8897"/><stop offset=".35" stop-color="#F2F5F8"/><stop offset=".6" stop-color="#B9C2CD"/><stop offset="1" stop-color="#5D6876"/>
+</linearGradient>
+<linearGradient id="g-arco" x1="0" x2="0" gradientUnits="userSpaceOnUse" y1="-340" y2="-150">
+  <stop offset="0" stop-color="#93A5BD"/><stop offset="1" stop-color="#55677F"/>
+</linearGradient>
+<pattern id="pat-malha" width="7" height="7" patternUnits="userSpaceOnUse">
+  <rect width="7" height="7" fill="#5E7088"/><circle cx="3.5" cy="3.5" r="1.25" fill="#465569"/><circle cx="0" cy="0" r=".7" fill="#7486A0"/>
+</pattern>
+<pattern id="pat-pano" width="5" height="5" patternUnits="userSpaceOnUse">
+  <rect width="5" height="5" fill="#1C2430"/><circle cx="2.5" cy="2.5" r=".8" fill="#2A3442"/>
+</pattern>
+
+<path id="sil-concha" d="M-16 -105H16A74 74 0 0 1 90 -31V31A74 74 0 0 1 16 105H-16A74 74 0 0 1 -90 31V-31A74 74 0 0 1 -16 -105Z"/>
+<path id="sil-almofada" d="M-15 -112H15A82 82 0 0 1 97 -30V30A82 82 0 0 1 15 112H-15A82 82 0 0 1 -97 30V-30A82 82 0 0 1 -15 -112Z"/>
+<path id="sil-bateria" d="M-49 -33H49A10 10 0 0 1 59 -23V23A10 10 0 0 1 49 33H-49A10 10 0 0 1 -59 23V-23A10 10 0 0 1 -49 -33Z"/>
+<circle id="sil-placa" r="72"/>
+<circle id="sil-falante" r="78"/>
+<g id="p-concha"><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#1f2833"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 1.91 0.21)" fill="#212b37"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 3.81 0.42)" fill="#242e3a"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 5.72 0.64)" fill="#26303e"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 7.62 0.85)" fill="#283341"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 9.53 1.06)" fill="#2a3645"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 11.44 1.27)" fill="#2d3949"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 13.34 1.48)" fill="#2f3c4c"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 15.25 1.69)" fill="#313f50"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 17.15 1.91)" fill="#344153"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 19.06 2.12)" fill="#364457"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 20.96 2.33)" fill="#38475a"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 22.87 2.54)" fill="#3b4a5e"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 24.78 2.75)" fill="#3d4d62"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 26.68 2.96)" fill="#3f5065"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 28.59 3.18)" fill="#415269"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 30.49 3.39)" fill="#44556c"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 32.4 3.6)" fill="#465870"/><rect x="-27.25" y="-10.27" width="10" height="16" rx="5" fill="#7D90A9" stroke="#2A3442" stroke-width="1.2"/><rect x="-27.25" y="15.73" width="10" height="16" rx="5" fill="#7D90A9" stroke="#2A3442" stroke-width="1.2"/><rect x="-27.25" y="41.73" width="10" height="16" rx="5" fill="#7D90A9" stroke="#2A3442" stroke-width="1.2"/><g transform="matrix(0.42 -0.2 0 1 32.4 3.6)">
+    <use href="#sil-concha" fill="url(#g-corpo)"/>
+    <path d="M-13 -90H13A62 62 0 0 1 75 -28V28A62 62 0 0 1 13 90H-13A62 62 0 0 1 -75 28V-28A62 62 0 0 1 -13 -90Z" fill="url(#g-fundo-concha)"/>
+    <path d="M-13 -90H13A62 62 0 0 1 75 -28V28A62 62 0 0 1 13 90H-13A62 62 0 0 1 -75 28V-28A62 62 0 0 1 -13 -90Z" fill="none" stroke="#11171F" stroke-width="3" opacity=".7"/>
+    <g fill="#3A475A" stroke="#55667E" stroke-width="1.5">
+      <circle cx="-46" cy="-58" r="6"/><circle cx="46" cy="-58" r="6"/><circle cx="-46" cy="58" r="6"/><circle cx="46" cy="58" r="6"/>
+    </g>
+    <path d="M-30 0H30M0 -40V40" stroke="#2A3442" stroke-width="2" opacity=".6"/></g></g>
+<g id="p-bateria"><use href="#sil-bateria" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#5d6a7c"/><use href="#sil-bateria" transform="matrix(0.42 -0.2 0 1 1.44 0.16)" fill="#677486"/><use href="#sil-bateria" transform="matrix(0.42 -0.2 0 1 2.88 0.32)" fill="#717e90"/><use href="#sil-bateria" transform="matrix(0.42 -0.2 0 1 4.32 0.48)" fill="#7a8799"/><use href="#sil-bateria" transform="matrix(0.42 -0.2 0 1 5.76 0.64)" fill="#8491a3"/><use href="#sil-bateria" transform="matrix(0.42 -0.2 0 1 7.2 0.8)" fill="#8e9bad"/><g transform="matrix(0.42 -0.2 0 1 7.2 0.8)">
+    <use href="#sil-bateria" fill="url(#g-bateria)"/>
+    <rect x="-52" y="-14" width="104" height="5" rx="2" fill="#93A1B3"/>
+    <rect x="-52" y="4" width="70" height="3" rx="1.5" fill="#A3B0C0"/>
+    <rect x="52" y="-12" width="10" height="24" rx="2" fill="#313B48"/>
+    <path d="M62 -6c14 0 18 -10 30 -12M62 6c16 0 20 10 32 12" fill="none" stroke="#C9D3DF" stroke-width="2.2" stroke-linecap="round"/></g></g>
+<g id="p-placa"><use href="#sil-placa" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#0b1a2a"/><use href="#sil-placa" transform="matrix(0.42 -0.2 0 1 0.9 0.1)" fill="#0f2337"/><use href="#sil-placa" transform="matrix(0.42 -0.2 0 1 1.8 0.2)" fill="#132b43"/><use href="#sil-placa" transform="matrix(0.42 -0.2 0 1 2.7 0.3)" fill="#173450"/><g transform="matrix(0.42 -0.2 0 1 2.7 0.3)">
+    <use href="#sil-placa" fill="#12304B" stroke="#2F5375" stroke-width="2"/>
+    <g fill="none" stroke="#7FB2F0" stroke-width="1.6" stroke-linecap="round" opacity=".7">
+      <path d="M-50 -20H-30V-40H10"/><path d="M-28 22H-6V40H30"/><path d="M18 -6H44V18"/><path d="M-12 -34V-52H24"/>
+    </g>
+    <path d="M22 -58l8 6 -8 6 8 6 -8 6 8 6" fill="none" stroke="#9CC6F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="-26" y="-16" width="44" height="32" rx="3" fill="#0A1520" stroke="#3B6087" stroke-width="1.5"/>
+    <rect x="26" y="24" width="18" height="14" rx="2" fill="#0A1520" stroke="#3B6087" stroke-width="1.2"/>
+    <rect x="-46" y="26" width="12" height="8" rx="1.5" fill="#26425F"/>
+    <circle cx="-52" cy="-2" r="8" fill="#1A2230" stroke="#B7CBE2" stroke-width="2"/>
+    <circle cx="-52" cy="-2" r="3" fill="#7FB2F0"/></g></g>
+<g id="p-falante"><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#151b23"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 1.4 0.16)" fill="#181e27"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 2.8 0.31)" fill="#1b212b"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 4.2 0.47)" fill="#1d252f"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 5.6 0.62)" fill="#202833"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 7 0.78)" fill="#232b36"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 8.4 0.93)" fill="#262e3a"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 9.8 1.09)" fill="#28323e"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 11.2 1.24)" fill="#2b3542"/><use href="#sil-falante" transform="matrix(0.42 -0.2 0 1 12.6 1.4)" fill="#2e3846"/><g transform="matrix(0.42 -0.2 0 1 12.6 1.4)">
+    <use href="#sil-falante" fill="#2A333F"/>
+    <circle r="74" fill="none" stroke="#45546A" stroke-width="3"/>
+    <g fill="#3A475A"><rect x="-6" y="-80" width="12" height="10" rx="2"/><rect x="-6" y="70" width="12" height="10" rx="2"/><rect x="-80" y="-6" width="10" height="12" rx="2"/><rect x="70" y="-6" width="10" height="12" rx="2"/></g>
+    <circle r="64" fill="url(#g-cone)"/>
+    <circle r="62" fill="none" stroke="#5A6C85" stroke-width="4" opacity=".8"/>
+    <circle r="50" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="2"/>
+    <circle r="38" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="2"/>
+    <circle r="22" fill="url(#g-tampa)"/></g></g>
+<g id="p-falante-face"><g transform="matrix(0.42 -0.2 0 1 0 0)">
+    <use href="#sil-falante" fill="#2A333F"/>
+    <circle r="74" fill="none" stroke="#45546A" stroke-width="3"/>
+    <circle r="64" fill="url(#g-cone)"/>
+    <circle r="62" fill="none" stroke="#5A6C85" stroke-width="4" opacity=".8"/>
+    <circle r="50" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="2"/>
+    <circle r="38" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="2"/>
+    <circle r="22" fill="url(#g-tampa)"/></g></g>
+<g id="p-almofada"><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#36445a"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 2.04 0.23)" fill="#38475d"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 4.08 0.45)" fill="#3b4960"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 6.12 0.68)" fill="#3d4c62"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 8.16 0.91)" fill="#404f65"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 10.2 1.13)" fill="#425168"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 12.24 1.36)" fill="#44546b"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 14.28 1.59)" fill="#47576e"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 16.32 1.81)" fill="#495970"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 18.36 2.04)" fill="#4c5c73"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 20.4 2.27)" fill="#4e5f76"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 22.44 2.49)" fill="#506179"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 24.48 2.72)" fill="#53647c"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 26.52 2.95)" fill="#55677e"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 28.56 3.17)" fill="#586981"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 30.6 3.4)" fill="#5a6c84"/><g transform="matrix(0.42 -0.2 0 1 30.6 3.4)">
+    <path d="M-15 -112H15A82 82 0 0 1 97 -30V30A82 82 0 0 1 15 112H-15A82 82 0 0 1 -97 30V-30A82 82 0 0 1 -15 -112Z M-9 -73H9A46 46 0 0 1 55 -27V27A46 46 0 0 1 9 73H-9A46 46 0 0 1 -55 27V-27A46 46 0 0 1 -9 -73Z" fill-rule="evenodd" fill="url(#pat-malha)"/>
+    <path d="M-9 -73H9A46 46 0 0 1 55 -27V27A46 46 0 0 1 9 73H-9A46 46 0 0 1 -55 27V-27A46 46 0 0 1 -9 -73Z" fill="url(#pat-pano)"/>
+    <path d="M-10 -77H10A49 49 0 0 1 59 -28V28A49 49 0 0 1 10 77H-10A49 49 0 0 1 -59 28V-28A49 49 0 0 1 -10 -77Z" fill="none" stroke="#8B9DB5" stroke-width="3" opacity=".55"/>
+    <path d="M-15 -109H15A79 79 0 0 1 94 -30V30A79 79 0 0 1 15 109H-15A79 79 0 0 1 -94 30V-30A79 79 0 0 1 -15 -109Z" fill="none" stroke="#91A3BB" stroke-width="2" opacity=".5"/>
+    <path d="M-9 -73H9A46 46 0 0 1 55 -27V27A46 46 0 0 1 9 73H-9A46 46 0 0 1 -55 27V-27A46 46 0 0 1 -9 -73Z" fill="none" stroke="#0F141B" stroke-width="4" opacity=".6"/></g></g>
+<g id="p-concha-fora">
+    <use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#2f3b4d"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 2.04 0.23)" fill="#323e50"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 4.08 0.45)" fill="#344154"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 6.12 0.68)" fill="#374457"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 8.16 0.91)" fill="#39475a"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 10.2 1.13)" fill="#3c4a5e"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 12.24 1.36)" fill="#3e4d61"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 14.28 1.59)" fill="#415064"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 16.32 1.81)" fill="#435268"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 18.36 2.04)" fill="#46556b"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 20.4 2.27)" fill="#48586e"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 22.44 2.49)" fill="#4b5b72"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 24.48 2.72)" fill="#4d5e75"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 26.52 2.95)" fill="#506178"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 28.56 3.17)" fill="#52647c"/><use href="#sil-almofada" transform="matrix(0.42 -0.2 0 1 30.6 3.4)" fill="#55677f"/>
+    <g transform="translate(30.6 3.4)">
+      <use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 0 0)" fill="#2b3644"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 1.9 0.21)" fill="#2e3948"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 3.8 0.42)" fill="#303c4c"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 5.7 0.63)" fill="#333f50"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 7.6 0.84)" fill="#354154"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 9.5 1.06)" fill="#384457"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 11.4 1.27)" fill="#3a475b"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 13.3 1.48)" fill="#3d4a5f"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 15.2 1.69)" fill="#3f4d63"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 17.1 1.9)" fill="#425067"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 19 2.11)" fill="#44526b"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 20.9 2.32)" fill="#47556f"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 22.8 2.53)" fill="#495873"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 24.7 2.74)" fill="#4c5b77"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 26.6 2.96)" fill="#4e5e7a"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 28.5 3.17)" fill="#51617e"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 30.4 3.38)" fill="#536382"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 32.3 3.59)" fill="#566686"/><use href="#sil-concha" transform="matrix(0.42 -0.2 0 1 34.2 3.8)" fill="#58698a"/><rect x="-25.7" y="-14.1" width="10" height="16" rx="5" fill="#8EA0B8" stroke="#2A3442" stroke-width="1.2"/><rect x="-25.7" y="11.9" width="10" height="16" rx="5" fill="#8EA0B8" stroke="#2A3442" stroke-width="1.2"/><rect x="-25.7" y="37.9" width="10" height="16" rx="5" fill="#8EA0B8" stroke="#2A3442" stroke-width="1.2"/><g transform="matrix(0.42 -0.2 0 1 34.2 3.8)">
+      <use href="#sil-concha" fill="url(#g-fora)"/>
+      <use href="#sil-concha" fill="url(#g-brilho)"/>
+      <path d="M-16 -101H16A70 70 0 0 1 86 -31V31A70 70 0 0 1 16 101H-16A70 70 0 0 1 -86 31V-31A70 70 0 0 1 -16 -101Z" fill="none" stroke="#C3D0DF" stroke-width="1.5" opacity=".45"/></g>
+    </g></g>
+<g id="p-arco">
+    <path d="M9.48 -148L9.87 -160.38L11.05 -172.63L13.01 -184.68L15.74 -196.48L19.22 -207.99L23.46 -219.16L28.41 -229.93L34.08 -240.27L40.42 -250.12L47.42 -259.45L55.04 -268.21L63.26 -276.38L72.02 -283.9L81.31 -290.76L91.08 -296.91L101.28 -302.34L111.88 -307.03L122.82 -310.94L134.06 -314.07L145.56 -316.41L157.26 -317.93L169.12 -318.64L181.07 -318.53L193.08 -317.6L205.09 -315.86L217.04 -313.31L228.9 -309.97L240.6 -305.85L252.1 -300.96L263.34 -295.33L274.28 -288.98L284.88 -281.94L295.08 -274.25L304.85 -265.92L314.14 -257L322.9 -247.53L331.12 -237.54L338.74 -227.08L345.74 -216.2L352.08 -204.93L357.75 -193.34L362.7 -181.46L366.94 -169.36L370.42 -157.07L373.15 -144.66L375.11 -132.17L376.29 -119.67L376.68 -107.2" fill="none" stroke="#2E3A4A" stroke-width="24" stroke-linecap="round"/>
+    <path d="M20.85 -182.82L23.05 -192.44L25.86 -201.85L29.25 -211.03L33.23 -219.94L37.77 -228.55L42.86 -236.84L48.48 -244.78L54.61 -252.33L61.24 -259.48L68.34 -266.2L75.88 -272.47L83.85 -278.27L92.21 -283.57L100.94 -288.36L110.01 -292.63L119.38 -296.36L129.03 -299.53L138.92 -302.14L149.02 -304.18L159.3 -305.63L169.72 -306.51L180.25 -306.79L190.85 -306.49L201.48 -305.6L212.11 -304.13L222.71 -302.07L233.24 -299.45L243.66 -296.26L253.94 -292.52L264.04 -288.24L273.93 -283.43L283.58 -278.11L292.95 -272.3L302.02 -266.02L310.75 -259.29L319.11 -252.13L327.08 -244.56L334.62 -236.62L341.72 -228.32L348.35 -219.69L354.48 -210.78L360.1 -201.59L365.19 -192.17L369.73 -182.55L373.71 -172.76L377.1 -162.83L379.91 -152.79L382.11 -142.68" fill="none" stroke="#56687F" stroke-width="16" stroke-linecap="round"/>
+    <path d="M23.14 -192.78L25.84 -201.78L29.07 -210.57L32.83 -219.11L37.11 -227.39L41.9 -235.37L47.17 -243.04L52.93 -250.36L59.13 -257.31L65.78 -263.88L72.84 -270.04L80.3 -275.78L88.13 -281.08L96.31 -285.91L104.81 -290.27L113.61 -294.14L122.68 -297.51L131.99 -300.38L141.52 -302.72L151.23 -304.54L161.09 -305.83L171.08 -306.58L181.16 -306.79L191.3 -306.46L201.48 -305.6L211.66 -304.2L221.8 -302.27L231.88 -299.82L241.87 -296.85L251.73 -293.37L261.44 -289.4L270.97 -284.94L280.28 -280L289.35 -274.62L298.15 -268.79L306.65 -262.54L314.83 -255.89L322.66 -248.85L330.12 -241.46L337.18 -233.73L343.83 -225.68L350.03 -217.34L355.79 -208.75L361.06 -199.91L365.85 -190.86L370.13 -181.64L373.89 -172.25L377.12 -162.75L379.82 -153.14" fill="none" stroke="#3B4859" stroke-width="2.6" stroke-dasharray="0.1 7" stroke-linecap="round"/>
+    <path d="M20.4 -153.2L20.79 -165.58L21.97 -177.83L23.93 -189.88L26.66 -201.68L30.14 -213.19L34.38 -224.36L39.33 -235.13L45 -245.47L51.34 -255.32L58.34 -264.65L65.96 -273.41L74.18 -281.58L82.94 -289.1L92.23 -295.96L102 -302.11L112.2 -307.54L122.8 -312.23L133.74 -316.14L144.98 -319.27L156.48 -321.61L168.18 -323.13L180.04 -323.84L191.99 -323.73L204 -322.8L216.01 -321.06L227.96 -318.51L239.82 -315.17L251.52 -311.05L263.02 -306.16L274.26 -300.53L285.2 -294.18L295.8 -287.14L306 -279.45L315.77 -271.12L325.06 -262.2L333.82 -252.73L342.04 -242.74L349.66 -232.28L356.66 -221.4L363 -210.13L368.67 -198.54L373.62 -186.66L377.86 -174.56L381.34 -162.27L384.07 -149.86L386.03 -137.37L387.21 -124.87L387.6 -112.4" fill="none" stroke="url(#g-arco)" stroke-width="22" stroke-linecap="round"/>
+    <path d="M30.28 -211.01L33.4 -220.49L37 -229.73L41.07 -238.7L45.61 -247.38L50.59 -255.73L56.01 -263.75L61.84 -271.39L68.09 -278.66L74.71 -285.51L81.7 -291.94L89.05 -297.93L96.71 -303.46L104.69 -308.5L112.94 -313.06L121.46 -317.12L130.21 -320.66L139.18 -323.68L148.33 -326.16L157.64 -328.11L167.08 -329.51L176.64 -330.36L186.27 -330.66L195.96 -330.4L205.68 -329.6L215.4 -328.25L225.09 -326.35L234.72 -323.91L244.28 -320.93L253.72 -317.43L263.03 -313.42L272.18 -308.9L281.15 -303.89L289.9 -298.4L298.42 -292.46L306.67 -286.06L314.65 -279.24L322.31 -272.01L329.66 -264.39L336.65 -256.41L343.27 -248.08L349.52 -239.43L355.35 -230.49L360.77 -221.27L365.75 -211.8L370.29 -202.12L374.36 -192.25L377.96 -182.21L381.08 -172.03" fill="none" stroke="#C2CEDD" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    <rect x="5.2" y="-155.2" width="22" height="20" rx="7" fill="#3E4C60" stroke="#6E819B" stroke-width="1.2"/><rect x="372.4" y="-114.4" width="22" height="20" rx="7" fill="#3E4C60" stroke="#6E819B" stroke-width="1.2"/>
+  </g>
+<g id="p-hastes"><rect x="11.7" y="-151.2" width="9" height="50" fill="url(#g-cromo)"/>
+      <rect x="8.2" y="-106.2" width="16" height="9" rx="3" fill="#2A3442"/><rect x="378.9" y="-110.4" width="9" height="50" fill="url(#g-cromo)"/>
+      <rect x="375.4" y="-65.4" width="16" height="9" rx="3" fill="#2A3442"/></g>
+<g id="fone-montado">
+  <use href="#p-concha" transform="translate(0 0)"/>
+  <use href="#p-bateria" transform="translate(12.6 1.4)"/>
+  <use href="#p-placa" transform="translate(21.6 2.4)"/>
+  <use href="#p-falante" transform="translate(25.2 2.8)"/>
+  <use href="#p-almofada" transform="translate(34.2 3.8)"/>
+  <use href="#p-hastes"/><use href="#p-arco"/>
+  <use href="#p-concha-fora" transform="translate(334.8 37.2)"/>
+</g>
+</defs></svg>
+<!-- fone:defs:fim -->
+
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<nav class="carimbo" aria-label="Vistas do fone">
+  <p class="carimbo__marca">Fone P9 <span>headset Bluetooth</span></p>
+  <p class="carimbo__vista"><span class="carimbo__rot">Vista</span> <span class="carimbo__atual" data-vista-atual>Montado</span></p>
+  <ul class="carimbo__lista">
+    <li><a href="#montado" data-vista="montado">Montado</a></li>
+    <li><a href="#por-dentro" data-vista="por-dentro">Por dentro</a></li>
+    <li><a href="#vedacao" data-vista="vedacao">Vedação</a></li>
+    <li><a href="#ficha" data-vista="ficha">Ficha</a></li>
+    <li><a href="#preco" data-vista="preco">Preço</a></li>
+  </ul>
+</nav>
+
+<main id="conteudo">
+
+  <!-- 1 · Curiosidade: o fone montado, em camadas -->
+  <section id="montado" class="hero" data-sc-act="flow" data-sc-drift="#0B0F14" data-vista-nome="Montado">
+    <div class="hero__fundo" data-sc-parallax="1.2" aria-hidden="true">
+      <div class="hero__fundo-in" data-mouse="0.6">
+        <svg class="hero__aneis" viewBox="-500 -500 1000 1000">
+          <circle r="120"/><circle r="190"/><circle r="270"/><circle r="360"/><circle r="460"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero__brilho" data-sc-parallax="0.6" aria-hidden="true"></div>
+
+    <figure class="hero__fone" data-sc-parallax="-0.5">
+      <div class="hero__fone-in" data-mouse="1.4">
+        <svg viewBox="-70 -360 540 560" role="img" aria-label="Desenho do Fone P9 montado, em vista três quartos: arco acolchoado, hastes metálicas e duas conchas azuis.">
+          <g class="construcao" aria-hidden="true">
+            <path d="M-60 186H460" pathLength="1"/>
+            <path d="M16 -150V186" pathLength="1"/>
+            <path d="M383 -110V186" pathLength="1"/>
+            <ellipse cx="200" cy="-128" rx="190" ry="200" pathLength="1"/>
+          </g>
+          <use href="#fone-montado"/>
+        </svg>
+      </div>
+    </figure>
+
+    <div class="hero__copy">
+      <h1 class="hero__titulo">Seu som, sem fio.</h1>
+      <p class="hero__texto">Fone P9: headset over-ear com Bluetooth 5.1, microfone embutido e até 4 horas de música.</p>
+      <p class="hero__acoes">
+        <a class="botao" href="#preco">Ver preço</a>
+        <a class="link-seta" href="#por-dentro">Ver por dentro</a>
+      </p>
+    </div>
+
+    <div class="hero__frente" data-sc-parallax="-2.2" aria-hidden="true">
+      <div class="hero__frente-in" data-mouse="3">
+        <svg viewBox="-60 -130 200 260"><use href="#p-almofada"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Expectativa: uma frase, quase nada -->
+  <section class="prelude" data-sc-act="flow">
+    <p class="prelude__frase" data-sc-in>Por fora, você já viu.<br>Agora, vamos abrir uma concha.</p>
+  </section>
+
+  <!-- 3 · Pico: a concha se abre -->
+  <section id="por-dentro" class="explode" data-sc-act="pin" data-sc-span="4" data-sc-drift="#0A0E13" data-vista-nome="Por dentro">
+    <div class="explode__palco" data-sc-stage>
+      <header class="explode__cabeca" data-cue="0 0.16 0">
+        <h2 class="explode__titulo">O que tem dentro de uma concha</h2>
+        <p class="explode__sub">Role devagar: as peças se separam ao longo de um eixo e cada uma ganha um número.</p>
+      </header>
+
+      <div class="explode__desenho">
+<!-- fone:explodido:inicio -->
+<svg class="explode__svg" viewBox="190 44 880 720" role="img" aria-labelledby="explode-titulo-svg" data-base="384 486">
+  <title id="explode-titulo-svg">Vista explodida de uma concha do Fone P9: concha com botões, bateria, placa Bluetooth com microfone, alto-falante e almofada, alinhados da esquerda para a direita, com o arco acolchoado e as hastes metálicas acima.</title>
+  <path class="eixo" d="M324 480L928 546" pathLength="1"/>
+  <g class="explode__camera">
+    <g class="peca peca--direita" data-peca="direita" data-s0="372" data-extra="520" transform="translate(384 486) translate(802.8 89.2)" opacity="0"><use href="#p-concha-fora"/></g>
+    <g class="peca" data-peca="concha" data-s0="0" data-extra="0" transform="translate(384 486) translate(0 0)"><use href="#p-concha"/></g>
+    <g class="peca" data-peca="bateria" data-s0="14" data-extra="110" transform="translate(384 486) translate(111.6 12.4)"><use href="#p-bateria"/></g>
+    <g class="peca" data-peca="placa" data-s0="24" data-extra="210" transform="translate(384 486) translate(210.6 23.4)"><use href="#p-placa"/></g>
+    <g class="peca" data-peca="falante" data-s0="28" data-extra="320" transform="translate(384 486) translate(313.2 34.8)"><use href="#p-falante"/></g>
+    <g class="peca" data-peca="almofada" data-s0="38" data-extra="450" transform="translate(384 486) translate(439.2 48.8)"><use href="#p-almofada"/></g>
+    <g class="peca peca--arco" data-peca="arco" data-levanta="92" transform="translate(384 394)"><use href="#p-arco"/><use href="#p-hastes"/></g>
+    <g class="peca peca--voo" data-peca="voo" aria-hidden="true" opacity="0" data-s="362" transform="translate(384 486) translate(325.8 36.2)"><use href="#p-falante-face"/></g>
+  </g>
+  <g class="rotulos">
+<g class="rotulo" data-rotulo="almofada">
+    <path class="rotulo__linha" d="M853.8 660.2V664" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="853.8" cy="660.2" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(853.8 678)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">1</text></g>
+      <text class="rotulo__nome" text-anchor="middle" y="36"><tspan x="0" dy="0">Almofada</tspan><tspan x="0" dy="20">over-ear</tspan></text>
+    </g></g>
+<g class="rotulo" data-rotulo="falante">
+    <path class="rotulo__linha" d="M709.8 434.2V344" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="709.8" cy="434.2" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(709.8 330)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">2</text></g>
+      <text class="rotulo__nome" text-anchor="end" x="-22" y="5">Alto-falante</text>
+    </g></g>
+<g class="rotulo" data-rotulo="placa">
+    <path class="rotulo__linha" d="M597.3 591.7V664" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="597.3" cy="591.7" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(597.3 678)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">3</text></g>
+      <text class="rotulo__nome" text-anchor="middle" y="36"><tspan x="0" dy="0">Placa Bluetooth</tspan><tspan x="0" dy="20">5.1 e microfone</tspan></text>
+    </g></g>
+<g class="rotulo" data-rotulo="bateria">
+    <path class="rotulo__linha" d="M502.8 456.2V344" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="502.8" cy="456.2" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(502.8 330)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">4</text></g>
+      <text class="rotulo__nome" text-anchor="end" x="-22" y="5">Bateria</text>
+    </g></g>
+<g class="rotulo" data-rotulo="concha">
+    <path class="rotulo__linha" d="M416.4 604.6V664" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="416.4" cy="604.6" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(416.4 678)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">5</text></g>
+      <text class="rotulo__nome" text-anchor="middle" y="36"><tspan x="0" dy="0">Concha</tspan><tspan x="0" dy="20">com botões</tspan></text>
+    </g></g>
+<g class="rotulo" data-rotulo="arco">
+    <path class="rotulo__linha" d="M489.62 75.85L429.62 25.85H369.62" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="489.62" cy="75.85" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(353.62 25.85)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">6</text></g>
+      <text class="rotulo__nome" x="-22" y="5" text-anchor="end">Arco acolchoado</text>
+    </g>
+    <path class="rotulo__linha" d="M775.4 306.6H887.4" pathLength="1"/>
+    <circle class="rotulo__ponto" cx="775.4" cy="306.6" r="3.5"/>
+    <g class="rotulo__marca" transform="translate(903.4 306.6)">
+      <g class="rotulo__disco"><circle r="13"/><text class="rotulo__num" text-anchor="middle" dy="5">7</text></g>
+      <text class="rotulo__nome" x="22" y="5" text-anchor="start">Hastes metálicas</text>
+    </g></g>
+  </g>
+</svg>
+<!-- fone:explodido:fim -->
+      </div>
+
+      <div class="explode__painel">
+        <p class="explode__voo" data-cue="0.38 0.6">O alto-falante transforma o sinal do Bluetooth em som. Há um em cada concha: som estéreo.</p>
+        <ol class="explode__passos">
+          <li data-passo="almofada" data-cue="0.6 0.7">
+            <span class="passo__num">1</span>
+            <h3>Almofada over-ear</h3>
+            <p>Macia, envolve a orelha inteira em vez de apoiar sobre ela. Dá conforto em uso longo e abafa parte do barulho de fora.</p>
+          </li>
+          <li data-passo="falante" data-cue="0.67 0.77">
+            <span class="passo__num">2</span>
+            <h3>Alto-falante</h3>
+            <p>Um em cada lado, para som estéreo. O anúncio não informa o tamanho.</p>
+          </li>
+          <li data-passo="placa" data-cue="0.74 0.84">
+            <span class="passo__num">3</span>
+            <h3>Placa Bluetooth 5.1 e microfone</h3>
+            <p>Conecta ao celular sem fio e capta sua voz nas chamadas, com as mãos livres.</p>
+          </li>
+          <li data-passo="bateria" data-cue="0.81 0.9">
+            <span class="passo__num">4</span>
+            <h3>Bateria</h3>
+            <p>Até 4 horas de música. O anúncio informa de 3 a 4 horas com o volume em 100%.</p>
+          </li>
+          <li data-passo="concha" data-cue="0.87 0.95">
+            <span class="passo__num">5</span>
+            <h3>Concha com botões</h3>
+            <p>Volume, troca de música e atender chamadas sem pegar o celular. Também chama o assistente de voz (o anúncio cita a Siri).</p>
+          </li>
+          <li data-passo="arco" data-cue="0.92 1.14">
+            <span class="passo__num">6 · 7</span>
+            <h3>Arco acolchoado e hastes metálicas</h3>
+            <p>O arco tem almofada perfurada por baixo. As hastes ligam o arco às conchas e ajustam a altura.</p>
+          </li>
+        </ol>
+        <p class="explode__nota" data-cue="0.58 1.14">Ilustração esquemática. A disposição interna real pode variar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Alívio: você é o barulho -->
+  <section id="vedacao" class="vedacao" data-sc-act="flow" data-sc-drift="#0C121A" data-vista-nome="Vedação">
+    <div class="sc-wrap vedacao__grade">
+      <div class="vedacao__copy sc-stack" data-sc-in data-sc-stagger="70">
+        <h2 class="vedacao__titulo">O mundo continua lá fora.</h2>
+        <p class="sc-body">As almofadas over-ear fecham em volta da orelha e abafam parte do barulho em volta. Lá dentro, sobra a música.</p>
+        <p class="vedacao__dica" data-dica>Mova o mouse sobre o desenho: você é o barulho. Role a página e veja as almofadas se fecharem.</p>
+        <p class="vedacao__estado" aria-hidden="true">Almofadas: <span data-estado>abertas</span></p>
+      </div>
+      <figure class="vedacao__figura">
+        <canvas class="vedacao__tela" aria-hidden="true"></canvas>
+        <svg class="vedacao__estatico" viewBox="0 0 600 480" role="img" aria-label="Ilustração: ondas de barulho chegam de fora e param nas almofadas fechadas; dentro, só a onda da música.">
+          <g class="vedacao__ondas">
+            <circle cx="40" cy="70" r="80"/><circle cx="40" cy="70" r="150"/><circle cx="40" cy="70" r="230"/><circle cx="40" cy="70" r="320"/>
+            <circle cx="570" cy="420" r="70"/><circle cx="570" cy="420" r="140"/><circle cx="570" cy="420" r="220"/><circle cx="570" cy="420" r="310"/>
+          </g>
+          <rect class="vedacao__miolo" x="210" y="110" width="180" height="260" rx="80"/>
+          <rect class="vedacao__anel" x="210" y="110" width="180" height="260" rx="80"/>
+          <path class="vedacao__musica" d="M226 240c14-22 28-22 42 0s28 22 42 0 28-22 42 0 28 22 22 8"/>
+        </svg>
+        <figcaption>Simulação ilustrativa do isolamento pelas almofadas.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 5 · Confiança: o que o anúncio informa -->
+  <section id="ficha" class="ficha" data-sc-act="flow" data-vista-nome="Ficha">
+    <div class="sc-wrap">
+      <div class="ficha__bloco" data-sc-reveal="up" data-sc-reveal-at="0.04 0.3">
+        <header class="ficha__cabeca">
+          <h2 class="ficha__titulo">Ficha técnica</h2>
+          <p class="sc-body">Tudo o que o anúncio informa, e o que ele não informa.</p>
+        </header>
+        <dl class="ficha__lista">
+          <div><dt>Conexão</dt><dd>Bluetooth 5.1, sem fio</dd></div>
+          <div><dt>Formato</dt><dd>Headset over-ear, estéreo</dd></div>
+          <div><dt>Microfone</dt><dd>Embutido, com modo mãos livres</dd></div>
+          <div><dt>Controles</dt><dd>Volume, músicas e chamadas</dd></div>
+          <div><dt>Assistente de voz</dt><dd>Sim (o anúncio cita a Siri)</dd></div>
+          <div><dt>Bateria</dt><dd>Até 4 h (3 a 4 h com volume em 100%)</dd></div>
+          <div><dt>Acompanha</dt><dd>Almofadas</dd></div>
+          <div><dt>Estojo de carga</dt><dd>Não incluso</dd></div>
+          <div><dt>Cor</dt><dd>Azul</dd></div>
+          <div><dt>Luz LED</dt><dd>Não tem</dd></div>
+        </dl>
+        <div class="ficha__pendentes">
+          <h3 class="ficha__subtitulo">O anúncio não informa</h3>
+          <ul class="ficha__etiquetas">
+            <li class="etiqueta">Tamanho do alto-falante</li>
+            <li class="etiqueta">Tempo de recarga</li>
+            <li class="etiqueta">Alcance do Bluetooth</li>
+            <li class="etiqueta">Peso</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Decisão: montado de novo, o preço, um botão -->
+  <section id="preco" class="preco" data-sc-act="flow" data-sc-drift="#0E1724" data-vista-nome="Preço">
+    <div class="sc-wrap preco__grade">
+      <figure class="preco__fone">
+        <svg viewBox="-70 -360 540 560" role="img" aria-label="O Fone P9 montado de novo."><use href="#fone-montado"/></svg>
+      </figure>
+      <div class="preco__prancha" data-sc-in data-sc-stagger="70">
+        <p class="preco__selo">Black Friday</p>
+        <h2 class="preco__titulo">Tudo isso, montado, por <span class="preco__valor">R$&nbsp;29,15</span></h2>
+        <p class="preco__de"><s aria-label="Preço anterior: R$ 33,90">R$&nbsp;33,90</s> <span>14% de desconto</span></p>
+        <!-- TROCAR: href pelo link do anúncio -->
+        <p><a class="botao botao--cheio" href="#preco" data-link-anuncio>Ver no anúncio</a></p>
+        <p class="preco__nota">Preço visto no anúncio em 18 de novembro de 2026. Pode mudar a qualquer momento: confira no anúncio antes de comprar.</p>
+      </div>
+    </div>
+    <footer class="rodape sc-wrap">
+      <p>Fone P9 é o nome do modelo informado no anúncio. Desenhos esquemáticos, feitos para esta página.</p>
+    </footer>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script src="pagina.js"></script>
+</body>
+</html>
